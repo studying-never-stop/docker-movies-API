@@ -6,6 +6,10 @@ networks:
   redis-network:
     external: true
     name: 'redis-network'
+  mongo-api-network:
+    external: true
+    name: 'mongo-api-network'
+  
 
 services:
   api:
@@ -14,11 +18,11 @@ services:
     ports:
       - '9000:9000'
     environment:
-      - MONGODB_URI=mongodb://${MONGODB_USERNAME}:${MONGODB_PASSWORD}@mongodb:27017
+      - MONGODB_URI=mongodb://admin:password@mongoDB:27017
       - REDIS_URI=redis://redis:6379
       - ENABLE_WRITING_HANDLERS=false
     networks:
-      - mongo-network
+      - mongo-api-network
       - redis-network
     depends_on:
       - mongodb
@@ -33,6 +37,7 @@ services:
     ports:
       - '27017:27017'
     networks:
+      - mongo-api-network
       - mongo-network
     volumes:
       - ./database:/data/db
