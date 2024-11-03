@@ -1,7 +1,7 @@
 const fs = require('fs');
 
 const conn = new Mongo("mongodb://admin:password@mongoDB:27017");
-const db = conn.getDB("movies");
+const db = conn.getDB("tmdb_movies");
 const collectionName = 'movies';
 
 const dataFilePath = '/docker-entrypoint-initdb.d/seeding.json'; 
