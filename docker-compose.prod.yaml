@@ -17,7 +17,7 @@ services:
     ports:
       - '9000:9000'
     environment:
-      - MONGODB_URI=mongodb://admin:password@mongoDB:27017/movies
+      - MONGODB_URI=mongodb://admin:password@mongoDB:27017
       - REDIS_URI=redis://redis:6379
       - ENABLE_WRITING_HANDLERS=false   
     networks:
@@ -40,7 +40,7 @@ services:
       - mongo-api-network
       - mongo-network
     volumes:
-      - db-data:/data/db  
+      - ./database:/data/db
     restart: always
 
   redis:
