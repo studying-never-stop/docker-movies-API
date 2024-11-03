@@ -1,0 +1,31 @@
+load("/docker-entrypoint-initdb.d/seed.js")
+db.movies.insertMany([{ "name": "movie 1", "year": 2020 }, { "name": "movie 2", "year": 2021 }] )
+load("/docker-entrypoint-initdb.d/seed.js");
+db.runCommand({ connectionStatus: 1})
+load("seed.js");
+load("/docker-entrypoint-initdb.d/seed.js");
+movies
+show collections
+help
+use movies
+load("/docker-entrypoint-initdb.d/seed.js");
+use admin
+show users
+use admin
+show users
+show user
+help
+hlep
+logs
+load("/docker-entrypoint-initdb.d/seed.js");
+use movies
+load("/docker-entrypoint-initdb.d/seed.js");
+get.user()
+getUser()
+load("/docker-entrypoint-initdb.d/seed.js");
+show collections
+use movies
+show collections
+show collection
+use movies
+db.getName()

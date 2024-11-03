@@ -14,7 +14,7 @@ services:
     ports:
       - '9000:9000'
     environment:
-      - MONGODB_URI=mongodb://${MONGODB_USERNAME}:${MONGODB_PASSWORD}@localhost:27017
+      - MONGODB_URI=mongodb://${MONGODB_USERNAME}:${MONGODB_PASSWORD}@mongodb:27017
       - REDIS_URI=redis://redis:6379
       - ENABLE_WRITING_HANDLERS=false
     networks:
@@ -28,14 +28,15 @@ services:
     container_name: mongoDB
     image: mongo:8.0-rc
     environment:
-      - MONGO_INITDB_ROOT_USERNAME=${MONGODB_USERNAME} 
+      - MONGO_INITDB_ROOT_USERNAME=${MONGODB_USERNAME}
       - MONGO_INITDB_ROOT_PASSWORD=${MONGODB_PASSWORD}
     ports:
       - '27017:27017'
     networks:
       - mongo-network
     volumes:
-      - ./database:/db/data
+      - ./database:/data/db
+      - ./init:/docker-entrypoint-initdb.d
 
   redis:
     image: redis:alpine
