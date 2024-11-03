@@ -1,0 +1,56 @@
+version: '3'
+networks: 
+  mongo-network:
+    external: true
+    name: 'mongo-network'
+  redis-network:
+    external: true
+    name: 'redis-network'
+  mongo-api-network:
+    external: true
+    name: 'mongo-api-network'
+
+services:
+  api:
+    image: doconnor/movies-api:1.0
+    container_name: movies-api
+    ports:
+      - '9000:9000'
+    environment:
+      - MONGODB_URI=mongodb://admin:password@mongoDB:27017/movies
+      - REDIS_URI=redis://redis:6379
+      - ENABLE_WRITING_HANDLERS=false   
+    networks:
+      - mongo-api-network
+      - redis-network
+    depends_on:
+      - mongodb
+      - redis
+    restart: always 
+
+  mongodb:
+    container_name: mongoDB
+    image: mongo:8.0-rc
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${MONGODB_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGODB_PASSWORD}
+    ports:
+      - '27017:27017'
+    networks:
+      - mongo-api-network
+      - mongo-network
+    volumes:
+      - db-data:/data/db  
+    restart: always
+
+  redis:
+    image: redis:alpine
+    container_name: redis
+    ports:
+      - '6379:6379'
+    networks:
+      - redis-network
+    restart: always
+
+volumes:
+  db-data:
